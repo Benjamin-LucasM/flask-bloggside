@@ -1,9 +1,31 @@
-
-from flask import Flask, render_template
+import sqlite3
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
+DB_PATH = "blog.db"
 
-@app.route("/post/<int:post_id>")
+brukere = {
+    "admin": "admin123"
+}
+
+def fetch_all_posts():
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        rows = con.execute(
+            "SELECT id, title, content FROM posts ORDER BY id DESC;").fetchall()
+    return [[r["id"], r["title"], r["content"]] for r in rows]
+
+def fetch_post_by_id(post_id: int):
+    with sqlite3.connect(DB_PATH) as con:
+        con.row_factory = sqlite3.Row
+        row = con.execute(
+            "SELECT id, title, content FROM posts WHERE id = ?;",
+            (post_id)
+        ).fetchone()
+    if row is None:
+        return None
+    return [row["id"], row["title"], row["content"]]
+
 def post_detail(post_id):
     for p in posts:
         if p [0] == post_id:
@@ -13,8 +35,10 @@ def post_detail(post_id):
 
 @app.route("/")
 def hello():
-    posts = [[1, "hei", "testtekst adhaidhaidchaisdcja aidcjias jaidcja"], [2, "title", "content_html"], [3, "title", "content_html"], [4, "title", "content_html"]]
+    posts = fetch_all_posts()
     return render_template('index.html', posts=posts)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
