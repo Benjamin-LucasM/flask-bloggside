@@ -4,15 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='pictures/loginpic.png') }}');
+            background-size: cover;
+            background-position: center;
+        }
+        form.login-form {
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
+    
     <h2>Admin Login</h2>
-    <form method="post">
-        <input type="text" name="username" placeholder="username" required>
+    <form class="login-form" method="post">
+        <input type="text" name="username" placeholder="username">
         <br><br>
-        <input type="password" name="password" placeholder="password" required>
+        <input type="password" name="password" placeholder="password">
         <br><br>
         <button type="submit">Logg inn</button>
+
     </form>
 </body>
 </html>

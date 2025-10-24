@@ -50,7 +50,5 @@ def login():
 def admin_menu():
     return render_template("/admin/admin_menu.html")
 
-
-
 if __name__ == "__main__":
     app.run(debug=True)
