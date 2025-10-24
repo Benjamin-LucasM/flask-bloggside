@@ -1,12 +1,8 @@
 import sqlite3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, url_for, request, redirect
 
 app = Flask(__name__)
 DB_PATH = "blog.db"
-
-brukere = {
-    "admin": "admin123"
-}
 
 def fetch_all_posts():
     with sqlite3.connect(DB_PATH) as con:
@@ -37,6 +33,22 @@ def post_detail(post_id):
 def hello():
     posts = fetch_all_posts()
     return render_template('index.html', posts=posts)
+
+@app.route("/admin/login", methods = ["GET", "POST"])
+def login():
+    if request.method == "POST":
+        brukernavn = "admin"
+        passord = "admin123"
+
+        if brukernavn == brukernavn and passord == passord:
+            return redirect(url_for('admin_menu'))
+        else:
+            return render_template('/admin/login.html', feil=True)
+    return render_template("admin/login.html")
+
+@app.route("/admin/admin_menu")
+def admin_menu():
+    return render_template("/admin/admin_menu.html")
 
 
 
