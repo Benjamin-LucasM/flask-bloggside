@@ -48,7 +48,8 @@ def login():
 
 @app.route("/admin/admin_menu")
 def admin_menu():
-    return render_template("/admin/admin_menu.html")
+    posts = fetch_all_posts()
+    return render_template("/admin/admin_menu.html", posts=posts)
 
 if __name__ == "__main__":
     app.run(debug=True)

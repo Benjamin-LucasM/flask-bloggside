@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Menu</title>
+    <style>
+        .main { display: flex; flex-direction: row; width: 90%; }
+    </style>
 </head>
 <body>
     <h1>Admin menu</h1>
-    <div>
+    <div class="main">
         <div class="createbox">
             <h2>post creation   </h2>
             <input type="text" name="title" placeholder="Title" required>
@@ -17,7 +20,14 @@
             <button type="submit">Post</button>
         </div>
         <div>
-
+            <ul>
+                {% for post in posts %}
+                <div class="post-container">
+                    <h3>{{ post[1] }}</h3>
+                    <p>{{ post[2] }}</p>
+                </div>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </body>
